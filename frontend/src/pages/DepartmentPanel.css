@@ -1,0 +1,117 @@
+/* DepartmentPanel.css */
+.dept-panel { padding: var(--space-8); max-width: 1280px; }
+.dept-alert {
+  background: linear-gradient(135deg, var(--saffron-50), #fff);
+  border: 1px solid var(--saffron-300);
+  border-radius: var(--radius-xl);
+  padding: 12px 20px;
+  font-size: 0.875rem; font-weight: 500; color: var(--saffron-800);
+  margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.dept-filters {
+  background: white;
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius-xl);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+.filter-row { display: flex; gap: 2rem; flex-wrap: wrap; }
+.filter-group label { font-size: 0.75rem; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 8px; }
+.filter-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter-chip {
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--gray-200);
+  background: white; color: var(--gray-600);
+  font-size: 0.8rem; font-weight: 600;
+  cursor: pointer; transition: var(--transition-fast);
+}
+.filter-chip:hover { border-color: var(--navy-300); color: var(--navy-500); }
+.filter-chip.active { background: var(--navy-500); border-color: var(--navy-500); color: white; }
+.chip-high.active   { background: var(--error);   border-color: var(--error); }
+.chip-medium.active { background: var(--warning);  border-color: var(--warning); }
+.chip-low.active    { background: var(--success);  border-color: var(--success); }
+
+/* Cards grid */
+.dept-complaints-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+.dept-complaint-card {
+  background: white;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--gray-100);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: var(--transition-base);
+  display: flex; flex-direction: column;
+}
+.dept-complaint-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--navy-200); }
+.dept-complaint-card.breached { border-color: var(--error); }
+
+.dcc-header {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 1.25rem 1.25rem 0.75rem;
+}
+.dcc-icon {
+  width: 42px; height: 42px; flex-shrink: 0;
+  background: var(--navy-50); border-radius: var(--radius-lg);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem;
+}
+.dcc-meta { flex: 1; min-width: 0; }
+.dcc-title {
+  font-size: 0.9rem; font-weight: 700; color: var(--gray-800);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+.sla-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px; border-radius: var(--radius-full);
+  font-size: 0.72rem; font-weight: 700;
+  border: 1px solid; white-space: nowrap; flex-shrink: 0;
+}
+
+.dcc-body { padding: 0 1.25rem 0.75rem; flex: 1; }
+.dcc-desc { font-size: 0.82rem; color: var(--gray-600); line-height: 1.5; margin-bottom: 10px; }
+.dcc-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.dcc-location { font-size: 0.78rem; color: var(--gray-500); }
+
+.dcc-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 1.25rem;
+  border-top: 1px solid var(--gray-100);
+  background: var(--gray-50);
+  gap: 8px; flex-wrap: wrap;
+}
+.dcc-date { font-size: 0.78rem; color: var(--gray-500); }
+.dcc-actions { display: flex; align-items: center; gap: 8px; }
+.dcc-user { font-size: 0.78rem; color: var(--gray-500); }
+
+/* Status options in modal */
+.complaint-modal-info {
+  display: flex; flex-direction: column; gap: 12px;
+  background: var(--gray-50); border-radius: var(--radius-xl);
+  padding: 1.25rem; margin-bottom: 0.5rem;
+}
+.status-options { display: flex; flex-direction: column; gap: 8px; }
+.status-option {
+  padding: 12px 16px; border-radius: var(--radius-lg);
+  border: 2px solid var(--gray-200); background: white;
+  font-size: 0.875rem; font-weight: 600; color: var(--gray-700);
+  text-align: left; cursor: pointer; transition: var(--transition-fast);
+}
+.status-option:hover { border-color: var(--navy-300); background: var(--navy-50); color: var(--navy-600); }
+.status-option.selected { border-color: var(--navy-500); background: var(--navy-500); color: white; }
+
+/* Pagination */
+.pagination { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+.page-info { font-size: 0.875rem; color: var(--gray-500); }
+
+@media (max-width: 1024px) {
+  .dept-complaints-grid { grid-template-columns: 1fr; }
+  .dept-panel { padding: var(--space-4); }
+}

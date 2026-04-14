@@ -1,0 +1,44 @@
+/* UserDashboard.css */
+.user-dashboard {
+  padding: var(--space-8);
+  max-width: 1280px;
+}
+.page-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: var(--space-8); flex-wrap: wrap; gap: 1rem;
+}
+.filter-tabs {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+.filter-tab {
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: white;
+  border: 2px solid var(--gray-200);
+  color: var(--gray-600);
+  transition: var(--transition-fast);
+  cursor: pointer;
+}
+.filter-tab:hover { border-color: var(--navy-300); color: var(--navy-500); }
+.filter-tab.active {
+  background: var(--navy-500);
+  border-color: var(--navy-500);
+  color: white;
+}
+.complaints-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+.pagination {
+  display: flex; align-items: center; justify-content: center; gap: 1rem;
+  padding-top: var(--space-4);
+}
+.page-info { font-size: 0.875rem; color: var(--gray-500); }
+
+@media (max-width: 1200px) { .complaints-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px)  { .complaints-grid { grid-template-columns: 1fr; } .user-dashboard { padding: var(--space-4); } }
