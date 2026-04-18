@@ -1,6 +1,5 @@
 /**
  * server.js — Main entry point for the Grievance Redressal Backend
- * Initializes Express, Socket.IO, MongoDB, and all routes
  */
 
 const express = require('express');
@@ -34,16 +33,19 @@ const { initSocket } = require('./src/socket/socketHandler');
 const app = express();
 const httpServer = http.createServer(app);
 
+// ✅ CORS configuration (Production ready)
+const allowedOrigin = process.env.FRONTEND_URL || "*";
+
 // Initialize Socket.IO
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    origin: allowedOrigin,
     methods: ['GET', 'POST'],
     credentials: true,
   },
 });
 
-// Make io accessible in routes via req.io
+// Make io accessible in routes
 app.use((req, res, next) => {
   req.io = io;
   next();
@@ -54,14 +56,14 @@ connectDB();
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000,
   max: 200,
   message: { success: false, message: 'Too many requests, please try again later.' },
 });
 
 // Global middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: allowedOrigin,
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
@@ -69,8 +71,13 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(morgan('dev'));
 app.use('/api', limiter);
 
-// Static files (uploaded attachments)
+// Static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// ✅ ROOT ROUTE (Fix for Bad Gateway)
+app.get('/', (req, res) => {
+  res.send('🚀 Grievance Backend is running successfully');
+});
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -80,7 +87,11 @@ app.use('/api/departments', departmentRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ success: true, message: 'Grievance Redressal API is running', timestamp: new Date() });
+  res.json({
+    success: true,
+    message: 'Grievance Redressal API is running',
+    timestamp: new Date(),
+  });
 });
 
 // 404 handler
@@ -91,16 +102,16 @@ app.use((req, res) => {
 // Global error handler
 app.use(errorHandler);
 
-// Initialize Socket.IO handlers
+// Initialize Socket.IO
 initSocket(io);
 
 // Start server
 const PORT = process.env.PORT || 5000;
 httpServer.listen(PORT, () => {
-  console.log(`\n🚀 Grievance Redressal Server running on port ${PORT}`);
+  console.log(`\n🚀 Server running on port ${PORT}`);
   console.log(`📡 Socket.IO enabled`);
   console.log(`🌍 Environment: ${process.env.NODE_ENV}`);
-  console.log(`🔗 API Base: http://localhost:${PORT}/api\n`);
+  console.log(`🔗 API Base: /api\n`);
 });
 
 module.exports = { app, io };
