@@ -47,7 +47,9 @@ export default function AuthPage({ mode = 'login' }) {
       else if (role === 'department_officer') navigate('/department');
       else navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || (isLogin ? 'Invalid credentials.' : 'Registration failed.'));
+      console.error('Registration Error:', err);
+      const msg = err.response?.data?.message || err.message || (isLogin ? 'Invalid credentials.' : 'Registration failed.');
+      setError(msg);
     } finally {
       setLoading(false);
     }

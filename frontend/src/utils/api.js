@@ -1,20 +1,18 @@
-// api.js — Axios instance with base URL and interceptors
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '/api',
-  timeout: 15000,
+  baseURL: 'https://hack2skill-2-2pp9.onrender.com/api', // ✅ /auth நீக்கு
+  timeout: 60000,
   headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
 });
 
-// Attach token from localStorage on every request
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
-// Handle auth errors globally
 api.interceptors.response.use(
   (res) => res,
   (error) => {
